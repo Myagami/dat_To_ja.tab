@@ -16,7 +16,9 @@ sub campany{#会社名を取得する
     #会社名
     my $camp = {
 	JRH => "JR北海道",
-	JRE => "JR東日本"
+	JRE => "JR東日本",
+	JNR => "国鉄"
+	    
     } ;
 
     $self = shift ;
@@ -33,14 +35,31 @@ sub type{#車両の種別取得
 	M => "モハ",
 	Tc => "クハ",
 	Mc => "クモハ",
-	Ts => "サロ"
+	Ts => "サロ",
+	Thsc => "クロハ",
+	Kiha => "キハ",
+	Kiro => "キロ",
+	Kisaha => "キサハ"
     } ;
 
     #$self->{name} =~ /^[A-z]{1,} ([A-Za-z0-9_']{1,})(.*)/ ;
     $self->{name} =~ s/\'//g ;
 
-    if($self->{name} =~ /Kiha/){
+    if($self->{name} =~ /Kiha|Kiro|Kisaha/){#気動車
+	$self->{name} =~ /^[A-z]{1,} DC_([A-Za-z0-9_]{1,})(.*)/ ;
+	my @type = split(/_/,$1) ;
+	
+	$data =  $types->{$type[0]} ;
+	$data .= $type[1]."系" ;
 
+	if(defined($type[2])){
+	    $data .=  $type[2] ;
+	    $data .= "番台" ;
+	}
+
+	if(defined($2)){
+	    $data .=  $2 ;
+	}
     }else{
 	#形式部分を取得
 	$self->{name} =~ /^[A-z]{1,} ([A-Za-z0-9_']{1,}|[A-Za-z0-9_]{1,})(.*)/ ;
