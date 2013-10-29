@@ -39,7 +39,11 @@ sub type{#車両の種別取得
 	Thsc => "クロハ",
 	Kiha => "キハ",
 	Kiro => "キロ",
-	Kisaha => "キサハ"
+	Kisaha => "キサハ",
+	TsD => "サロ",
+	TA => "サハ",
+	Mu => "モハ"
+	    
     } ;
 
     #$self->{name} =~ /^[A-z]{1,} ([A-Za-z0-9_']{1,})(.*)/ ;
@@ -63,7 +67,6 @@ sub type{#車両の種別取得
     }else{
 	#形式部分を取得
 	$self->{name} =~ /^[A-z]{1,} ([A-Za-z0-9_']{1,}|[A-Za-z0-9_]{1,})(.*)/ ;
-
 	#形式部分を分割
 	#list(my $type,my $num,my $serial) = split(/_/,$1) ;
 	my @type = split(/_/,$1) ;
@@ -84,6 +87,7 @@ sub type{#車両の種別取得
 	if(defined($2)){
 	    $data .=  $2 ;
 	}
+
     }
     return $data ;
 
