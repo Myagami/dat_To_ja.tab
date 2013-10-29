@@ -2,10 +2,10 @@
 #厳密な検査 / システムモジュール
 use strict ;
 use warnings ;
-use lib '/home/hayate/Perl/ja.tab.templ/opt' ;
+use lib '/home/hayate/Perl/ja.tab.templ/Train' ;
 
 #独自モジュール
-use JR_Train ;
+use Train::JR_Train ;
 #変数宣言
 my @dats ;
 my @names ;
@@ -44,10 +44,15 @@ if($#ARGV < 1){
 
 #ファイルに書き込む
 open($file_h,">>",$out_file) or die("File can't open") ;
-my $Train = JR_Train->new() ;
+my $Train = Train::JR_Train->new() ;
 foreach my $name ( @names){
+    my $Text = "" ;
     #print $file_h $name."\n\n" ;
     $Train->get_Name($name) ;
-    $Train->campany() ;
-    $Train->type() ;
+    $Text .= $Train->campany() ;
+    $Text .= " " ;
+    $Text .= $Train->type() ;
+    print $Text."\n" ;
+    print $file_h $name."\n" ;
+    print $file_h $Text."\n" ;
 }
