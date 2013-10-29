@@ -52,7 +52,9 @@ foreach my $name ( @names){
     $Text .= $Train->campany() ;
     $Text .= " " ;
     $Text .= $Train->type() ;
+    print $name."\n" ;
     print $Text."\n" ;
+    
     print $file_h $name."\n" ;
     print $file_h $Text."\n" ;
 }
