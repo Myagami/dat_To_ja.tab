@@ -44,7 +44,7 @@ if($#ARGV < 1){
 
 #ファイルに書き込む
 open($file_h,">>",$out_file) or die("File can't open") ;
-my $Train = Train::JR_Train->new() ;
+my $Train = Train::Kintetsu_Train->new() ;
 foreach my $name ( @names){
     my $Text = "" ;
     #print $file_h $name."\n\n" ;
