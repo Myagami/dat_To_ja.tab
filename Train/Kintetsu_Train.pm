@@ -1,4 +1,4 @@
-package Train::JR_Train;
+package Train::Kintetsu_Train;
 
 sub new{#インスタンス生成
     my $pak = shift ;
@@ -15,10 +15,7 @@ sub get_Name{#名前を取得する
 sub campany{#会社名を取得する
     #会社名
     my $camp = {
-	JRH => "JR北海道",
-	JRE => "JR東日本",
-	JNR => "国鉄",
-	JRC => "JR東海"
+	Kintetsu => "近鉄"
 	    
     } ;
 
