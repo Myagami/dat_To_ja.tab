@@ -42,7 +42,8 @@ sub type{#車両の種別取得
 	Kisaha => "キサハ",
 	TsD => "サロ",
 	TA => "サハ",
-	Mu => "モハ"
+	Mu => "モハ",
+	TAc => "サハ"
 	    
     } ;
 
@@ -66,26 +67,30 @@ sub type{#車両の種別取得
 	}
     }else{
 	#形式部分を取得
-	$self->{name} =~ /^[A-z]{1,} ([A-Za-z0-9_']{1,}|[A-Za-z0-9_]{1,})(.*)/ ;
+	$self->{name} =~ /^[A-z]{1,} (([A-Za-z0-9_']{1,}|[A-Za-z0-9_]{1,})(.*))/ ;
 	#形式部分を分割
-	#list(my $type,my $num,my $serial) = split(/_/,$1) ;
 	my @type = split(/_/,$1) ;
-	$type[0] =~ s/[0-9]//g ;
-	
-	#print join("/",@type)."\n" ;
-	
-	#print $types->{$type[0]} ;
+	#print join("-",@type)."\n" ;
+	#称号取得
+	$type[0] =~ s/[0-9']{1,}// ;
 	$data = $types->{$type[0]} ;
-	$data .=  $type[1] ;
-	$data .= "系" ;
-	
+
+	#形式番号取得
+	#print $type[1]."\n" ;
+	#番台取得
 	if(defined($type[2])){
-	    $data .=  $type[2] ;
-	    $data .= "番台" ;
-	}
-	
-	if(defined($2)){
-	    $data .=  $2 ;
+	    $type[2] =~ s/\x0D$// ;
+	    $data .= $type[1]."系" ;
+	    
+	    $type[2] =~ /([0-9]{1,})(.*)/ ;
+	    $data .= $1."番台" ;
+	    $data .= $2 ;
+	    
+	}else{
+	    $type[1] =~ s/\x0D$// ;
+	    $type[1] =~ /([0-9]{1,})(.*)/ ;
+	    $data .= $1."系" ;
+	    $data .= $2 ;
 	}
 
     }
