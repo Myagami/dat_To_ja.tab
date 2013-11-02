@@ -1,8 +1,8 @@
 #!/usr/bin/env perl
 #厳密な検査 / システムモジュール
+use lib '/home/hayate/Perl/ja.tab.templ' ;
 use strict ;
 use warnings ;
-use lib '/home/hayate/Perl/ja.tab.templ/Train' ;
 
 #独自モジュール
 use Train::JR_Train ;

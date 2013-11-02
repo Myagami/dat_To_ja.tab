@@ -2,7 +2,7 @@
 #厳密な検査 / システムモジュール
 use strict ;
 use warnings ;
-use lib '/home/hayate/Perl/ja.tab.templ/Train' ;
+use lib '/home/hayate/Perl/ja.tab.templ' ;
 
 #独自モジュール
 use Train::Odakyu_Train ;
