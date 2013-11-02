@@ -18,8 +18,10 @@ sub campany{#会社名を取得する
 	JRH => "JR北海道",
 	JRE => "JR東日本",
 	JNR => "国鉄",
-	JRC => "JR東海"
-	    
+	JRC => "JR東海",
+	JRW => "JR西日本",
+	JRS => "JR四国",
+	JRK => "JR九州",
     } ;
 
     $self = shift ;
