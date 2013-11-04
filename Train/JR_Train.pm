@@ -58,7 +58,7 @@ sub type{#車両の種別取得
 	my @type = split(/_/,$1) ;
 	
 	$data =  $types->{$type[0]} ;
-	$data .= $type[1]."系" ;
+	$data .= $type[1]."形" ;
 
 	if(defined($type[2])){
 	    $data .=  $type[2] ;
