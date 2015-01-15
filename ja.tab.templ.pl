@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 #厳密な検査 / システムモジュール
-use lib '/home/hayate/Perl/ja.tab.templ' ;
+use lib '/home/hayate/Tools/dat_To_ja.tab' ;
 use strict ;
 use warnings ;
 
@@ -45,6 +45,8 @@ if($#ARGV < 1){
 #ファイルに書き込む
 open($file_h,">>",$out_file) or die("File can't open") ;
 my $Train = Train::JR_Train->new() ;
+print $file_h "§################################################################################\n" ;
+
 foreach my $name ( @names){
     my $Text = "" ;
     #print $file_h $name."\n\n" ;
