@@ -1,4 +1,4 @@
-package Train::Odakyu_Train;
+package Train::Nankai_Train;
 
 sub new{#インスタンス生成
     my $pak = shift ;

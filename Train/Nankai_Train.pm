@@ -15,7 +15,10 @@ sub get_Name{#名前を取得する
 sub campany{#会社名を取得する
     #会社名
     my $camp = {
-	Odakyu => "小田急電鉄"
+	Mizuma => "水間鉄道",
+	Nankai => "南海鉄道",
+	Semboku => "泉北高速鉄道",
+	Wakayama => "和歌山鐵道"
     } ;
 
     $self = shift ;
@@ -29,9 +32,9 @@ sub type{#車両の種別取得
     #形式
     my $types = {
 	T => "サハ",
-	M => "デハ",
+	M => "モハ",
 	Tc => "クハ",
-	Mc => "デハ"
+	Mc => "モハ"
     } ;
 
     #$self->{name} =~ /^[A-z]{1,} ([A-Za-z0-9_']{1,})(.*)/ ;
@@ -54,30 +57,50 @@ sub type{#車両の種別取得
 	}
     }else{
 	#形式部分を取得
-	$self->{name} =~ /^[A-z]{1,} ([A-Za-z0-9_']{1,}|[A-Za-z0-9_\(\)]{1,})/ ;
+	$self->{name} =~ /^[A-z]{1,} (([A-Za-z0-9_']{1,}|[A-Za-z0-9_]{1,})(.*))/ ;
 	#形式部分を分割
-	#list(my $type,my $num,my $serial) = split(/_/,$1) ;
-	my @type = split(/_/,$1) ;
-	$type[0] =~ s/[0-9]//g ;
-	
-	#print join("/",@type)."\n" ;
-	
-	#print $types->{$type[0]} ;
+	my @type = split(/_/,$1,2) ;
+	#print join("-",@type)."\n" ;
+	#称号取得
+	$type[0] =~ s/[0-9']{1,}// ;
 	$data = $types->{$type[0]} ;
-	$data .=  $type[1] ;
-	
+
+	#形式番号取得
+	#
+	#print $type[1]."\n" ;
+	#番台取得
 	if(defined($type[2])){
-	    $data .=  $type[2] ;
-	    $data .= "番台" ;
-	}
-	
-	if(defined($2)){
-	    $data .=  $2 ;
+	    $type[2] =~ s/\x0D$// ;
+	    $data .= $type[1]."形" ;
+	    
+	    $type[2] =~ /([0-9]{1,})(.*)/ ;
+	    $data .= $1."番台" ;
+	    my $nm = Series_Num($2) ;
+	    
+	    $data .= $nm ;
+	    
+	}else{
+	    $type[1] =~ s/\x0D$// ;
+	    $type[1] =~ /([0-9A-Za-z]{1,})(.*)/ ;
+	    $data .= $1."形" ;
+	    my $nm = Series_Num($2) ;
+
+	    $data .= $nm ;
 	}
 
     }
     return $data ;
 
+    sub Series_Num{#番台取得
+	my $nm = shift ;
+	my $data = $nm ;
+	$nm =~ s/type/タイプ/ ;
+	$nm =~ s/zoom car/ズームカー/ ;
+	$nm =~ s/non cooler/非冷房車/ ;
+	$data = $nm ;
+
+	return $data ;
+    }
 }
 
 1;
