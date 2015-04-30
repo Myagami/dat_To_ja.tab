@@ -20,6 +20,7 @@ if($#ARGV < 1){
     print "All check\n" ;
     $out_file = $ARGV[0] ;
     foreach my $dat ( @dats){
+	print $dat."\n----\n" ;
 	open($file_h,"<",$dat) or die("File can't open") ;
 #全行チェック
 	while(my $line =  readline($file_h)){
@@ -38,7 +39,7 @@ if($#ARGV < 1){
     while(my $line =  readline($file_h)){
 	chomp($line) ;
 	#nameで始まる行を代入する
-	if($line =~ /name=(.*)/){
+	if($line =~ /name=(.*)/i){
 	    push(@names,$1) ;
 	}
     }
@@ -48,4 +49,6 @@ if($#ARGV < 1){
 open($file_h,">>",$out_file) or die("File can't open") ;
 foreach my $name ( @names){
     print $file_h $name."\n\n" ;
+    print $name."\n\n" ;
 }
+
