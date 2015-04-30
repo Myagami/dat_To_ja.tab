@@ -38,7 +38,7 @@ sub type{#車両の種別取得
 	$self->{name} =~ /^[A-z]{1,} DC_([A-Za-z0-9_]{1,})(.*)/ ;
 	my @type = split(/_/,$1) ;
 	
-	$data = $type[0] ;
+	#$data = $type[0] ;
 	$data .= $type[1] ;
 
 	if(defined($type[2])){
@@ -51,13 +51,14 @@ sub type{#車両の種別取得
 	}
     }else{
 	#形式部分を取得
-	$self->{name} =~ /^[A-z]{1,} (([A-Za-z0-9_']{1,}|[A-Za-z0-9_]{1,})(.*))/ ;
+	$self->{name} =~ /^[A-z\s]{1,} (([A-Za-z0-9_']{1,}|[A-Za-z0-9_]{1,})(.*))/ ;
 	#形式部分を分割
-	my @type = split(/_/,$1,2) ;
-	#print join("-",@type)."\n" ;
+	my @type = split(/_/,$1) ;
+	print join("-",@type)."\n" ;
 	#称号取得
 	$type[0] =~ s/[0-9']{1,}// ;
-	$data = $types->{$type[0]} ;
+	#$data = "\"".$type[0]."\"" ;
+	$data = "" ;
 
 	#形式番号取得
 	#
@@ -81,6 +82,7 @@ sub type{#車両の種別取得
 
 	    $data .= $nm ;
 	}
+	$data .= "(".$type[0].")" ;
 
     }
     return $data ;
