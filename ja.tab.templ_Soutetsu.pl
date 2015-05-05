@@ -2,10 +2,11 @@
 #厳密な検査 / システムモジュール
 use strict ;
 use warnings ;
-use lib '/home/hayate/Perl/ja.tab.templ' ;
+use lib '/home/hayate/Tools/dat_To_ja.tab/' ;
 
 #独自モジュール
-use Train::Soutetsu_Train ;
+use Train::Sotetsu_Train ;
+
 #変数宣言
 my @dats ;
 my @names ;
@@ -43,8 +44,8 @@ if($#ARGV < 1){
 }
 
 #ファイルに書き込む
-open($file_h,">>","tabs/".$out_file) or die("File can't open") ;
-my $Train = Train::Soutetsu_Train->new() ;
+open($file_h,">>",$out_file) or die("File can't open") ;
+my $Train = Train::Sotetsu_Train->new() ;
 foreach my $name ( @names){
     my $Text = "" ;
     #print $file_h $name."\n\n" ;
@@ -55,6 +56,6 @@ foreach my $name ( @names){
     print $name."\n" ;
     print $Text."\n" ;
     
-    #print $file_h $name."\n" ;
-    #print $file_h $Text."\n" ;
+    print $file_h $name."\n" ;
+    print $file_h $Text."\n" ;
 }
