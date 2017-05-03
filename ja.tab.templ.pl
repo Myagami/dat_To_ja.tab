@@ -1,9 +1,9 @@
 #!/usr/bin/env perl
 #厳密な検査 / システムモジュール
-use lib '/home/hayate/Tools/dat_To_ja.tab' ;
+use lib '/home/honoka/Tools/dat_To_ja.tab' ;
 use strict ;
 use warnings ;
-
+use Data::Dumper ;
 #独自モジュール
 use Train::JR_Train ;
 #変数宣言

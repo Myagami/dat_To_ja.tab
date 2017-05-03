@@ -76,6 +76,7 @@ sub type{#車両の種別取得
 	my @type = split(/_/,$1,2) ;
 	#print join("-",@type)."\n" ;
 	#称号取得
+	$type_d = $type[0] ;
 	$type[0] =~ s/[0-9']{1,}// ;
 	$data = $types->{$type[0]} ;
 
@@ -87,35 +88,52 @@ sub type{#車両の種別取得
 	    $type[2] =~ s/\x0D$// ;
 	    $data .= $type[1]."形" ;
 	    
-	    $type[2] =~ /([0-9]{1,})(.*)/ ;
+	    $type[2] =~ /_([0-9]{1,})(.*)/ ;
 	    $data .= $1."番台" ;
 	    my $nm = Series_Num($2) ;
-	    
 	    $data .= $nm ;
 	    
 	}else{
 	    $type[1] =~ s/\x0D$// ;
 	    $type[1] =~ /([0-9A-Za-z]{1,})(.*)/ ;
 	    $data .= $1."形" ;
-	    my $nm = Series_Num($2) ;
-
+	    my $nm = Series_Num($type_d,$2) ;
 	    $data .= $nm ;
-	}
 
+	}
+	
     }
     return $data ;
 
     sub Series_Num{#番台取得
+	my $type = shift ;
 	my $nm = shift ;
 	my $data = $nm ;
-	$nm =~ s/ Area/色/ ;
-	$nm =~ s/ Line/線/ ;
-	$nm =~ s/ Renewal/ 新塗装/ ;
-	$nm =~ s/  type/ タイプ/ ;
+	$nm =~ s/non cooler car/非冷房車/ ;
+	$nm =~ s/color/色/ ;
+	$nm =~ s/Area/地区/ ;
+	$nm =~ s/Line/線/ ;
+	$nm =~ s/Renewal/新塗装/ ;
+	$nm =~ s/type/タイプ/ ;
+	$nm =~ s/Hi cab/高運転台車/ ;
+	$nm =~ s/Emerald/エメラルド/ ;
+	$nm =~ s/Orange/オレンジパーミリオン/ ;
+	$nm =~ s/Skyblue/スカイブルー/ ;
+	$nm =~ s/Uguisu/ウグイス/ ;
+	$nm =~ s/Yellow/カナリアイエロー/ ;
+	$nm =~ s/DP/ダブルパンタ/ ;
+	$nm =~ s/Practice car/訓練車/ ;
 	$data = $nm ;
+	if($type =~ /Tc1/){
+	    $data =~ s/\)/\<前方\>\)/ ;
+	}elsif($type =~ /Tc2/){
+	    $data =~ s/\)/\<後方\>\)/ ;
+	}
+	print $type.":".$data."\n" ;
 
 	return $data ;
     }
-}
 
+
+}
 1;
